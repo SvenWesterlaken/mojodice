@@ -1,0 +1,85 @@
+nav
+  position: absolute
+  top: 20px
+  left: 20px
+  z-index: 2
+  background: none
+  width: auto
+
+  ul
+    padding: 0
+    margin: 0
+    text-align: center
+
+  span.text
+    line-height: 22px
+    font-size: 17px
+    margin-left: 25px
+    padding: 15px 0
+    opacity: 0
+    transform: translateX(-30px)
+    display: inline-block
+    transition: all 0.4s ease-in-out
+
+
+    &::before
+      content: ""
+      height: 1px
+      width: 0%
+      position: absolute
+      bottom: 11px
+      left: 0
+      background: $offwhite
+      transition: all 0.4s ease-in-out
+
+    &.is-active
+      opacity: 1
+      transform: translateX(0px)
+      transition: all 0.6s cubic-bezier(0, 0, 0.05, 1)
+
+      &::before
+        width: 100%
+        transition: all 0.75s cubic-bezier(0, 0, 0.05, 1)
+
+
+.nav-item
+  outline: none
+  box-sizing: border-box
+  height: 60px
+  width: 60px
+  position: relative
+  list-style: none
+  z-index: 2
+
+  &::after, &::before
+    content: ""
+    position: absolute
+    height: 60px
+    width: 60px
+    top: 0
+    left: 0
+    visibility: hidden
+    transition: all 0.4s cubic-bezier(.23,1,.32,1)
+
+  &::after
+    border:
+      bottom: 2px solid $offwhite
+      top: 2px solid $offwhite
+    transform: scaleX(0)
+    transition-delay: 0.1s
+
+  &::before
+    border:
+      left: 2px solid $offwhite
+      right: 2px solid $offwhite
+    transform: scaleY(0)
+
+
+  &:hover
+    &::after
+      visibility: visible
+      transform: scaleX(1)
+
+    &::before
+      visibility: visible
+      transform: scaleY(1)
