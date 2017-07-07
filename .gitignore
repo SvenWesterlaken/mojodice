@@ -5,6 +5,7 @@ node_modules
 
 ### Bower ###
 bower_components
+/resources/assets/bower/
 .bower-cache
 .bower-registry
 .bower-tmp
