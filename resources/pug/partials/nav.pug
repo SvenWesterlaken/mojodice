@@ -1,0 +1,38 @@
+| {% if lang == 'nl' %}
+| {% set pages = ["home", "portfolio", "blog", "diensten", "about", "contact"] %}
+| {% set language_page = "taal" %}
+| {% set language_redirect = "en" %}
+| {% else %}
+| {% set pages = ["home", "portfolio", "blog", "services", "about", "contact"] %}
+| {% set language_page = "language" %}
+| {% set language_redirect = "nl" %}
+| {% endif %}
+
+nav.nav-container
+  button.nav-item.hamburger.hamburger--slider.inverse(type="button")
+    .hamburger-box
+      span.hamburger-inner
+  | {% for page in pages %}
+  | {% if page != "diensten" and page != current_page %}
+  a.nav-item.page-item.inverse(id="{{page}}", href="{{ path_for(page, {'lang': lang})}}")
+    .page-box
+      span.head {{page | first }}
+  | {% elseif page == "diensten" %}
+  a.nav-item.page-item.inverse(id="services", href="{{ path_for('services', {'lang': lang})}}")
+    .page-box
+      span.head {{page | first }}  
+  | {% endif %}
+  | {% endfor %}
+  a.nav-item.page-item.inverse(id="language", href="{{ path_for(current_page, {'lang': language_redirect})}}")
+    .page-box
+      span.head {{language_redirect}}
+  .page-name-container.nav-item.inverse
+    .page-name-box
+      | {% for page in pages %}
+      | {% if page != "diensten" and page != current_page %}
+      span.page-name(data-page-name="{{page}}") {{page}}
+      | {% elseif page == "diensten" %}
+      span.page-name(data-page-name="services") {{page}}
+      | {% endif %}
+      | {% endfor %}
+      span.page-name(data-page-name="language") {{language_page}}

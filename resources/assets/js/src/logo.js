@@ -1,14 +1,6 @@
 (function($){
 
-  var $window,
-      $menuBtn,
-      $menuItem,
-      posY,
-      offset,
-      height,
-      $clickable;
-
-  function logoAnim(burst) {
+  function logoAnim(burst, $clickable, $menuItem, $menuBtn) {
     $clickable.on("click", function(){
       setTimeout(function() {
         burst.generate().replay();
@@ -54,7 +46,7 @@
     });
   }
 
-  function toggleItemName() {
+  function toggleItemName($menuItem) {
     $menuItem.on("mouseover", function(){
       var name = $(this).data("link-type");
 
@@ -75,35 +67,35 @@
   }
 
   $(document).ready(function(){
-    $clickable = $('.img-container');
-    $menuBtn = $('.menu-item#close-btn');
-    $menuItem = $('.menu-item');
-    $window = $(window);
-    offset = $clickable.offset().top;
-    height = $clickable.height();
-    posY = offset + height / 2;
+    var $clickable = $('.img-container'),
+        $menuBtn = $('.menu-item#close-btn'),
+        $menuItem = $('.menu-item');
 
-    const burst = new mojs.Burst({
-      left:           '50%',
-      top:            posY,
-      count:          10,
-      radius:         { 0: 150 },
-      angle:          360,
-      children: {
-        shape:        'rect',
-        radius:       15,
-        scale:        {'rand(0.2, 1)' : 0},
-        stroke:       '#fefefe',
-        fill:         'none',
-        angle:        { 0: 'rand(-180, 180)' },
-        degreeShift:  'rand(-180, 180)',
-        duration:     1200,
-        easing:       'quad.out',
-      }
-    });
+    if($clickable.length) {
+      var posY = ($clickable.offset().top) + ($clickable.height() / 2);
 
-    logoAnim(burst);
-    toggleItemName();
+      const burst = new mojs.Burst({
+        left:           '50%',
+        top:            posY,
+        count:          10,
+        radius:         { 0: 150 },
+        angle:          360,
+        children: {
+          shape:        'rect',
+          radius:       15,
+          scale:        {'rand(0.2, 1)' : 0},
+          stroke:       '#fefefe',
+          fill:         'none',
+          angle:        { 0: 'rand(-180, 180)' },
+          degreeShift:  'rand(-180, 180)',
+          duration:     1200,
+          easing:       'quad.out',
+        }
+      });
+
+      logoAnim(burst, $clickable, $menuItem, $menuBtn);
+      toggleItemName($menuItem);
+    }
 
   });
 

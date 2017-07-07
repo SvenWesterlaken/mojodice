@@ -11,15 +11,6 @@
   justify-content: center
   overflow: hidden
 
-  &::after
-    content: ""
-    position: absolute
-    top: 10px
-    left: 10px
-    bottom: 10px
-    right: 10px
-    border: 1px solid transparentize($offwhite, 0.2)
-
 #particles-js
   z-index: 1
 
@@ -144,7 +135,6 @@
       &:last-child
         margin-bottom: 0
 
-
       .menu-item
         @include span-columns(6)
         @include omega(2n)
@@ -175,7 +165,7 @@
 
         b, a
           font-size: 24px
-          font-weight: 300
+          font-weight: 400
           outline: none
           text-decoration: none
 
@@ -293,3 +283,6 @@ footer
       weight: 300
     line-height: 1
     letter-spacing: 2px
+
+.rotate
+  transform: rotate(315deg)

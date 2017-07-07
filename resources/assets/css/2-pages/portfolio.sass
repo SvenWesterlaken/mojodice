@@ -1,0 +1,285 @@
+#portfolio-background
+  background-color: $backgroundwhite
+  position: fixed
+  height: 100%
+  width: 100%
+  left: 0
+  top: 0
+  z-index: 0
+
+header.portfolio
+  z-index: 100
+  position: fixed
+  width: 100%
+  top: 0
+  left: 0
+  background: $offwhite
+  box-shadow: 0 0 3px rgba(0,0,0,0.14), 0 4px 8px rgba(0,0,0,0.28)
+
+  h1
+    text:
+      align: center
+      transform: uppercase
+    font:
+      size: 2.8em
+      weight: 300
+    letter-spacing: 0.2em
+    color: $offblack
+    margin: 0 -0.2em 0 0
+    padding: 20px
+    width: auto
+
+  .divider
+    width: 80px
+    margin: 0 auto
+    height: 2px
+    background: $offblack
+
+  .portfolio-filter-container
+    width: 100%
+    height: auto
+    padding: 20px
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+    .search-wrapper
+      position: relative
+      background: $backgroundwhite
+      width: 50%
+      margin: 10px
+      max-width: 800px
+      border: 1px solid $offblack
+      box-shadow: none
+      transition: all 0.4s cubic-bezier(0, 0, 0.1, 1)
+
+      &.focused
+        box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 4px 6px rgba(0,0,0,0.24)
+
+      #search-icon
+        color: $offblack
+        position: absolute
+        right: 0
+        top: 0
+        padding: 9px 11px 9px 11px
+        display: block
+        cursor: pointer
+
+
+      #search
+        display: block
+        font-size: 16px
+        font-weight: 600
+        color: $offblack
+        width: 100%
+        height: 45px
+        margin: 0
+        box-sizing: border-box
+        padding: 0 46px 0 15px
+        border: 0
+
+        &:focus
+          outline: none
+          box-shadow: none
+
+// ----------------------------
+// Filters
+// ----------------------------
+span#no-items-found
+  z-index: 1
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%)
+  color: $offblack
+  font-size: 1.05em
+  text-transform: uppercase
+  cursor: default
+  user-select: none
+  text-align: center
+  opacity: 0
+  transition: all 0.3s ease-in-out
+
+  &.active
+    opacity: 1
+
+.filter-button
+  position: absolute
+  top: 20px
+  right: 20px
+  z-index: 2
+  outline: none
+  box-sizing: border-box
+  height: 60px
+  width: 60px
+  list-style: none
+  z-index: 2
+  color: $offblack
+  background: none
+  border: none
+  cursor: pointer
+
+  &::after, &::before
+    content: ""
+    position: absolute
+    height: 60px
+    width: 60px
+    top: 0
+    left: 0
+    visibility: hidden
+    transition: all 0.4s cubic-bezier(.23,1,.32,1)
+
+  &::after
+    border:
+      bottom: 2px solid $offblack
+      top: 2px solid $offblack
+    transform: scaleX(0)
+    transition-delay: 0.1s
+
+  &::before
+    border:
+      left: 2px solid $offblack
+      right: 2px solid $offblack
+    transform: scaleY(0)
+
+
+  &:hover
+    &::after
+      visibility: visible
+      transform: scaleX(1)
+
+    &::before
+      visibility: visible
+      transform: scaleY(1)
+
+  .filter-box
+    width: 30px
+    height: 22px
+    display: inline-block
+    position: relative
+
+    .filter-inner
+      display: block
+      top: 1px
+      margin-top: -1px
+      width: 30px
+      height: 2px
+      background: $offblack
+
+      &::before, &::after
+        content: ""
+        background: $offblack
+        height: 2px
+        position: absolute
+
+      &::before
+        width: 18px
+        top: 10px
+        left: 6px
+
+      &::after
+        width: 6px
+        top: 20px
+        left: 12px
+
+  .filter-close-box
+    width: 30px
+    height: 30px
+    position: relative
+    display: inline-block
+
+    &::before, &::after
+      content: ""
+      width: 30px
+      height: 2px
+      background: $offblack
+      position: absolute
+      top: 50%
+      left: 0
+      margin-top: -1px
+
+    &::before
+      @include transform(rotate(45deg))
+
+    &::after
+      @include transform(rotate(-45deg))
+
+.filter-wrapper
+  z-index: 120
+  position: fixed
+  top: 0
+  right: -520px
+  width: 100vw
+  height: 100vh
+  max-width: 500px
+  background: $menuwhite
+  box-shadow: 0 0 3px rgba(0,0,0,0.12), -5px 0 10px rgba(0,0,0,0.24)
+  transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1)
+
+  &.opened
+    right: 0
+
+  .filter-header
+    padding: 10px 20px
+    width: 100%
+    height: 200px
+    position: relative
+    display: flex
+    justify-content: flex-end
+    align-items: flex-end
+
+    h2
+      text-transform: uppercase
+      font-size: 1.8em
+      font-weight: 400
+      color: $offblack
+      margin: 0
+      padding: 0
+
+  .filter-container
+    padding: 10px 20px 20px
+    text-align: right
+    color: $offblack
+    position: relative
+
+    &::after
+      content: ""
+      background: $dividerwhite
+      height: 1px
+      position: absolute
+      top: 0
+      right: 20px
+      left: 20px
+
+    h3
+      font-weight: 400
+      font-size: 1.02em
+      text-transform: uppercase
+      margin: 0 0 10px 0
+
+    section.category
+      margin-top: 20px
+
+    .filter-items-container
+      overflow: auto
+
+      .filter-btn
+        outline: none
+        cursor: pointer
+        float: right
+        position: relative
+        height: 36px
+        background: $backgroundwhite
+        margin: 1px 0 1px 2px
+        border: 1px solid $offblack
+        padding: 0 16px
+        transition: all 0.3s ease-in-out
+        font-size: 1.04em
+        font-weight: 300
+        text-transform: uppercase
+        background: transparent
+
+        &:hover, &.selected
+          background: $offblack
+          color: $offwhite

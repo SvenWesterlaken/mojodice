@@ -2,6 +2,7 @@
 
 use function DI\get;
 use Slim\Views\Twig;
+use Site\Models\Article;
 use Slim\Views\TwigExtension;
 use Interop\Container\ContainerInterface;
 
@@ -22,10 +23,29 @@ return [
     ));
 
     $twig->addExtension(new Twig_Extension_Debug());
+    $twig->addExtension(new Twig_Extensions_Extension_Intl());
+
+    $twig->getEnvironment()->addGlobal('assetUrl', $c->get('request')->getUri()->getBaseUrl() . '/resources/assets');
 
     return $twig;
 
   },
+
+  Article::class => function (ContainerInterface $c) {
+    return new Article;
+  },
+
+  Thumbnail::class => function (ContainerInterface $c) {
+    return new Thumbnail;
+  },
+
+  Type::class => function (ContainerInterface $c) {
+    return new Type;
+  },
+
+  Category::class => function (ContainerInterface $c) {
+    return new Category;
+  }
 ]
 
 ?>

@@ -43,6 +43,7 @@ nav
 
 
 .nav-item
+  display: inline-block
   outline: none
   box-sizing: border-box
   height: 60px
@@ -50,6 +51,7 @@ nav
   position: relative
   list-style: none
   z-index: 2
+  padding: 15px 13px
 
   &::after, &::before
     content: ""
@@ -83,3 +85,189 @@ nav
     &::before
       visibility: visible
       transform: scaleY(1)
+
+  &.inverse
+    &::after
+      border:
+        bottom: 2px solid $offblack
+        top: 2px solid $offblack
+
+    &::before
+      border:
+        left: 2px solid $offblack
+        right: 2px solid $offblack
+
+    .hamburger-box
+      .hamburger-inner
+        background-color: $offblack
+
+        &::after, &::before
+          background-color: $offblack
+
+.nav-container
+  height: 124px
+  width: 310px
+  overflow: hidden
+
+  .nav-item
+    display: block
+    outline: none
+    box-sizing: border-box
+    height: 60px
+    width: 60px
+    position: relative
+    list-style: none
+    z-index: 2
+    border: 0
+    margin: 0
+    overflow: visible
+    cursor: pointer
+    text-decoration: none
+    margin: 1px
+    float: left
+    background: none
+    transition: opacity 150ms ease-in-out, background-color 300ms ease-in-out, color 300ms ease-in-out
+
+    &.page-name-container
+      width: 184px
+      display: flex
+      align-items: center
+      cursor: default
+
+      &::before, &::after
+        width: 184px
+
+      .page-name-box
+        height: 30px
+        width: 100%
+        position: relative
+
+        span.page-name
+          line-height: 30px
+          font-size: 1.08em
+          font-weight: 400
+          text-transform: uppercase
+          position: absolute
+          left: 0
+          top: 0
+          display: block
+          height: 30px
+          width: 100%
+          text-align: center
+          opacity: 0
+          visibility: hidden
+          transition: all 0.1s ease-in-out
+
+          &.selected
+            opacity: 1
+            visibility: visible
+            transition: all 0.3s ease-in-out
+
+
+
+      &.inverse.opened:hover
+        background: none
+
+        span
+          color: $offblack
+
+    &.page-item, &.page-name-container
+      padding: 5px
+      opacity: 0
+      visibility: hidden
+
+    &.hamburger
+      padding: 19px 15px
+
+    .page-box
+      display: flex
+      height: 50px
+      width: 50px
+      overflow: visible
+      justify-content: center
+      align-items: center
+      position: relative
+      text-decoration: none
+
+      span
+        color: $offwhite
+        transition: all 300ms ease-in-out
+        user-select: none
+        cursor: pointer
+        text-decoration: none
+
+      span.head
+        font-size: 24px
+        font-weight: 400
+        text-transform: uppercase
+        outline: none
+        text-decoration: none
+
+    &::after, &::before
+      content: ""
+      position: absolute
+      height: 60px
+      width: 60px
+      top: 0
+      left: 0
+      visibility: hidden
+      transition: all 0.4s cubic-bezier(.23,1,.32,1)
+
+    &::after
+      border:
+        bottom: 2px solid $offwhite
+        top: 2px solid $offwhite
+      transform: scaleX(0)
+      transition-delay: 0.1s
+
+    &::before
+      border:
+        left: 2px solid $offwhite
+        right: 2px solid $offwhite
+      transform: scaleY(0)
+
+
+    &.opened, &:hover
+      &::after
+        visibility: visible
+        transform: scaleX(1)
+
+      &::before
+        visibility: visible
+        transform: scaleY(1)
+
+    &.opened
+      &::after, &::before
+        transition: all 200ms ease-in-out
+
+
+    &.inverse
+      span
+        color: $offblack
+
+      &::after
+        border:
+          bottom: 2px solid $offblack
+          top: 2px solid $offblack
+
+      &::before
+        border:
+          left: 2px solid $offblack
+          right: 2px solid $offblack
+
+      &.opened
+        opacity: 1
+        visibility: visible
+
+        &:hover
+          background: $offblack
+
+          span
+            color: $offwhite
+
+          .hamburger-box
+            .hamburger-inner
+              background-color: $offwhite
+
+              &::after, &::before
+                background-color: $offwhite

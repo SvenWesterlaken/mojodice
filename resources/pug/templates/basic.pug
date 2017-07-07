@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 html
   head
-    title Test
-    link(rel="stylesheet" href="resources/assets/css/main.min.css")
+    title {% block title %} {% endblock %}
+    link(rel="stylesheet" href="{{assetUrl ~ '/css/main.min.css'}}")
     meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
     meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
     meta(charset="UTF-8")
-    link(rel="shortcut icon" href="resources/assets/img/favicon.ico" type="image/x-icon")
+    link(rel="shortcut icon" href="{{assetUrl ~ '/img/favicon.ico'}}" type="image/x-icon")
     <!-- IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       script(src="http://html5shim.googlecode.com/svn/trunk/html5.js")
     <![endif]-->
-body
-  | {% include 'partials/nav.twig' %}
-  | {% block content %} {% endblock %}
+  body
+    | {% block content %} {% endblock %}
 
   #scripts
-    script(typ="text/javascript" src="resources/assets/js/common.min.js")
+    script(typ="text/javascript" src="{{assetUrl ~ '/js/common.min.js'}}")
     | {% block scripts %} {% endblock %}

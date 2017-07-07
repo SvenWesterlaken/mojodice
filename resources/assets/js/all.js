@@ -2,9 +2,7 @@
 
 (function ($) {
 
-  var $window, $menuBtn, $menuItem, posY, offset, height, $clickable;
-
-  function logoAnim(burst) {
+  function logoAnim(burst, $clickable, $menuItem, $menuBtn) {
     $clickable.on("click", function () {
       setTimeout(function () {
         burst.generate().replay();
@@ -50,7 +48,7 @@
     });
   }
 
-  function toggleItemName() {
+  function toggleItemName($menuItem) {
     $menuItem.on("mouseover", function () {
       var name = $(this).data("link-type");
 
@@ -69,57 +67,380 @@
   }
 
   $(document).ready(function () {
-    $clickable = $('.img-container');
-    $menuBtn = $('.menu-item#close-btn');
-    $menuItem = $('.menu-item');
-    $window = $(window);
-    offset = $clickable.offset().top;
-    height = $clickable.height();
-    posY = offset + height / 2;
+    var $clickable = $('.img-container'),
+        $menuBtn = $('.menu-item#close-btn'),
+        $menuItem = $('.menu-item');
 
-    var burst = new mojs.Burst({
-      left: '50%',
-      top: posY,
-      count: 10,
-      radius: { 0: 150 },
-      angle: 360,
-      children: {
-        shape: 'rect',
-        radius: 15,
-        scale: { 'rand(0.2, 1)': 0 },
-        stroke: '#fefefe',
-        fill: 'none',
-        angle: { 0: 'rand(-180, 180)' },
-        degreeShift: 'rand(-180, 180)',
-        duration: 1200,
-        easing: 'quad.out'
-      }
-    });
+    if ($clickable.length) {
+      var posY = $clickable.offset().top + $clickable.height() / 2;
 
-    logoAnim(burst);
-    toggleItemName();
+      var burst = new mojs.Burst({
+        left: '50%',
+        top: posY,
+        count: 10,
+        radius: { 0: 150 },
+        angle: 360,
+        children: {
+          shape: 'rect',
+          radius: 15,
+          scale: { 'rand(0.2, 1)': 0 },
+          stroke: '#fefefe',
+          fill: 'none',
+          angle: { 0: 'rand(-180, 180)' },
+          degreeShift: 'rand(-180, 180)',
+          duration: 1200,
+          easing: 'quad.out'
+        }
+      });
+
+      logoAnim(burst, $clickable, $menuItem, $menuBtn);
+      toggleItemName($menuItem);
+    }
   });
 })(jQuery);
 'use strict';
 
 (function ($) {
 
-  var $btn, $text;
-
-  function toggleBtn() {
+  function toggleBtn($btn, $text) {
     $btn.on('click', function () {
       $(this).toggleClass('is-active');
       $text.toggleClass('is-active');
     });
   }
 
+  function openNavMenu($btn, $btngroup) {
+    var $itemstack = $btngroup,
+        $itemstackReverse = $btngroup.reverse();
+
+    $btn.on('click', function () {
+      var $navbtn = $(this);
+
+      $navbtn.toggleClass('is-active');
+      disableBtnOnAnimate($navbtn, 1000);
+      if (!$navbtn.hasClass('opened')) {
+        $itemstack.each(function (i) {
+          var $this = $(this);
+          setTimeout(function () {
+            $this.addClass("opened");
+          }, 100 * i);
+        });
+      } else {
+        $itemstackReverse.each(function (i) {
+          var $this = $(this);
+          setTimeout(function () {
+            $this.removeClass("opened");
+          }, 100 * i);
+        });
+      }
+    });
+  }
+
+  function disableBtnOnAnimate($button, delay) {
+    $button.on('click', function () {
+      $button.addClass('noreg');
+      setTimeout(function () {
+        $button.removeClass('noreg');
+      }, delay);
+    });
+  }
+
+  function toggleItemName($menuItem) {
+    $menuItem.on("mouseover", function () {
+      var name = $(this).attr('id');
+
+      if (name) {
+        $(".page-name-container span.page-name[data-page-name='" + name + "']").addClass('selected');
+      }
+    });
+
+    $menuItem.on("mouseout", function () {
+      var name = $(this).attr('id');
+
+      if (name) {
+        $(".page-name-container span.page-name[data-page-name='" + name + "']").removeClass('selected');
+      }
+    });
+  }
+
+  jQuery.fn.reverse = function () {
+    return this.pushStack(this.get().reverse(), arguments);
+  };
+
   $(document).ready(function () {
-    $btn = $('.hamburger');
+    var $homebtn = $('#home'),
+        $navMenuBtn = $('.nav-container .nav-item.hamburger');
+    $navButtons = $('.nav-container .nav-item');
     $text = $('span.text');
 
-    toggleBtn();
+    toggleItemName($navButtons);
+    toggleBtn($homebtn, $text);
+    openNavMenu($navMenuBtn, $navButtons);
   });
 })(jQuery);
-'use strict';
+"use strict";
 
-particlesJS.load('particles-js', 'resources/assets/bower/particles.js/particles.json');
+(function ($) {
+
+  var container = $("#particles-js");
+
+  if (container.length) {
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 60,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#fefefe"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          },
+          "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+          }
+        },
+        "opacity": {
+          "value": 0.6,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 1,
+            "opacity_min": 0.4,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 2,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 6,
+            "size_min": 1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 130,
+          "color": "#fefefe",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 3,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": false,
+            "mode": "bubble"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 239.76023976023976,
+            "size": 1.5,
+            "duration": 0.3996003996003996,
+            "opacity": 1,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 100,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+  }
+})(jQuery);
+"use strict";
+
+(function ($) {
+
+  function liftSearchBar($searchinput, $searchwrapper) {
+    $searchinput.on("focusout", function () {
+      $searchwrapper.removeClass("focused");
+    });
+    $searchinput.on("focusin", function () {
+      $searchwrapper.addClass("focused");
+    });
+  }
+
+  function toggleFilterMenu($filterbtn, $filterwrapper) {
+    $filterbtn.on("click", function () {
+      $filterbtn.toggleClass("opened");
+      $filterwrapper.toggleClass("opened");
+    });
+  }
+
+  function shuffleSetup(Shuffle, $grid, $searchinput) {
+    var $sortbuttons = $("button.sortby-filter"),
+        $categorybuttons = $("button.category-filter"),
+        $span = $("#no-items-found");
+
+    var shuffle = new Shuffle($grid, {
+      itemSelector: '.item-thumbnail',
+      speed: 400,
+      easing: 'cubic-bezier(0.645, 0.045, 0.355, 1)',
+      delimiter: ','
+    });
+
+    //Search filter
+    $searchinput.on("keyup", function () {
+      var searchText = $searchinput.val().toLowerCase();
+
+      shuffle.filter(function (element, shuffle) {
+        var title = element.getAttribute("data-title").toLowerCase().trim();
+        return title.indexOf(searchText) !== -1;
+      });
+
+      handleShuffle($grid, $span);
+    });
+
+    //Sort filter
+    $sortbuttons.on("click", function () {
+      var $this = $(this),
+          type = $this.attr('id'),
+          options = {};
+
+      if ($this.hasClass("selected")) {
+        $this.removeClass("selected");
+      } else {
+        $sortbuttons.removeClass("selected");
+        $this.addClass("selected");
+        options = getSortType(type);
+      }
+
+      shuffle.sort(options);
+    });
+
+    var activefilters = [];
+
+    //Category filter
+    $categorybuttons.on("click", function () {
+      var $this = $(this),
+          category = $this.attr('id');
+
+      if ($this.hasClass("selected")) {
+        $this.removeClass("selected");
+
+        var i = activefilters.indexOf(category);
+
+        if (i != -1) {
+          activefilters.splice(i, 1);
+        }
+      } else {
+        $this.addClass("selected");
+        activefilters.push(category);
+      }
+
+      if (activefilters.length > 0) {
+        shuffle.filter(function (element, shuffle) {
+          var categories = element.getAttribute("data-categories").split(",");
+          return activefilters.some(function (v) {
+            return categories.indexOf(v) >= 0;
+          });
+        });
+      } else {
+        shuffle.filter(Shuffle.ALL_ITEMS);
+      }
+
+      handleShuffle($grid, $span);
+    });
+  }
+
+  function getSortType(type) {
+    //Date sort
+    function sortByDate(element) {
+      return element.getAttribute("data-created-at");
+    }
+
+    //Title sort
+    function sortByTitle(element) {
+      return element.getAttribute("data-title").toLowerCase();
+    }
+
+    if (type == "abc") {
+      return { reverse: false, by: sortByTitle };
+    } else if (type == "xyz") {
+      return { reverse: true, by: sortByTitle };
+    } else if (type == "newest" || type == "recent") {
+      return { reverse: true, by: sortByDate };
+    } else if (type == "oldest" || type == "oud") {
+      return { reverse: false, by: sortByDate };
+    }
+  }
+
+  function handleShuffle($grid, $span) {
+    if (!$grid.children(".shuffle-item--visible").length) {
+      $span.addClass("active");
+    } else {
+      $span.removeClass("active");
+    }
+  }
+
+  $(document).ready(function () {
+    var $filterwrapper = $(".filter-wrapper"),
+        $searchwrapper = $(".search-wrapper"),
+        $searchinput = $("#search"),
+        $grid = $("#portfolio-grid");
+
+    if ($searchwrapper.length) {
+      liftSearchBar($searchinput, $searchwrapper);
+    }
+
+    if ($filterwrapper.length) {
+      var $filterbtn = $(".filter-button");
+      toggleFilterMenu($filterbtn, $filterwrapper);
+    }
+
+    if ($grid.length) {
+      var Shuffle = window.shuffle;
+      shuffleSetup(Shuffle, $grid, $searchinput);
+    }
+  });
+})(jQuery);

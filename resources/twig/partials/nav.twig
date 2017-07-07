@@ -1,0 +1,13 @@
+{% if lang == 'nl' %}
+{% set pages = ["home", "portfolio", "blog", "diensten", "about", "contact"] %}
+{% set language_page = "taal" %}
+{% set language_redirect = "en" %}
+{% else %}
+{% set pages = ["home", "portfolio", "blog", "services", "about", "contact"] %}
+{% set language_page = "language" %}
+{% set language_redirect = "nl" %}
+{% endif %}<nav class="nav-container"><button class="nav-item hamburger hamburger--slider inverse" type="button"><div class="hamburger-box"><span class="hamburger-inner"></span></div></button>{% for page in pages %}
+{% if page != "diensten" and page != current_page %}<a class="nav-item page-item inverse" id="{{page}}" href="{{ path_for(page, {'lang': lang})}}"><div class="page-box"><span class="head">{{page | first }}</span></div></a>{% elseif page == "diensten" %}<a class="nav-item page-item inverse" id="services" href="{{ path_for('services', {'lang': lang})}}"><div class="page-box"><span class="head">{{page | first }}  </span></div></a>{% endif %}
+{% endfor %}<a class="nav-item page-item inverse" id="language" href="{{ path_for(current_page, {'lang': language_redirect})}}"><div class="page-box"><span class="head">{{language_redirect}}</span></div></a><div class="page-name-container nav-item inverse"><div class="page-name-box">{% for page in pages %}
+{% if page != "diensten" and page != current_page %}<span class="page-name" data-page-name="{{page}}">{{page}}</span>{% elseif page == "diensten" %}<span class="page-name" data-page-name="services">{{page}}</span>{% endif %}
+{% endfor %}<span class="page-name" data-page-name="language">{{language_page}}</span></div></div></nav>

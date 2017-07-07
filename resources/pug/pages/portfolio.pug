@@ -1,0 +1,66 @@
+| {% extends "templates/basic.twig" %}
+| {% block title %} Portfolio {% endblock %}
+| {% block content %}
+
+| {% if lang == 'nl' %}
+| {% set no_items = "Geen overeenkomende items gevonden."%}
+| {% set sortfilters = ["abc", "xyz", "recent", "oud"] %}
+| {% else %}
+| {% set no_items = "No matched items found."%}
+| {% set sortfilters = ["abc", "xyz", "newest", "oldest"] %}
+| {% endif %}
+
+header.portfolio
+  | {% include 'partials/nav.twig' with {'current_page': 'portfolio'}%}
+    
+  button.filter-button
+    .filter-box
+      span.filter-inner
+  
+  h1 Portfolio
+  
+  .divider
+  
+  .portfolio-filter-container    
+    .search-wrapper
+      input#search
+      i#search-icon.mdi.mdi-magnify.mdi-24px
+      
+  
+.portfolio-container
+  #portfolio-grid
+    | {% for article in articles %}
+    |   {% include 'partials/portfolio-item.twig' with {'article': article, 'lang': lang} %}
+    | {% endfor %}
+    
+.filter-wrapper
+  
+  button.filter-button
+    .filter-close-box
+  
+  .filter-header
+    h2 Filters
+  
+  .filter-container
+    section.sortby
+      h3 Sort By
+      
+      .filter-items-container
+        | {% for type in sortfilters %}
+        button.sortby-filter.filter-btn(id="{{type}}")
+          span {{ type }}
+        | {% endfor %}
+      
+    section.category
+      h3 Category
+      
+      .filter-items-container
+        | {% for category in categories %}
+        button.category-filter.filter-btn(id="{{category.getName(lang)}}")
+          span {{category.getName(lang)}}
+        | {% endfor %}
+
+span#no-items-found {{no_items}}
+#portfolio-background
+
+| {% endblock %}

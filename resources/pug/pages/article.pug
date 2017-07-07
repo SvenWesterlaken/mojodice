@@ -1,0 +1,17 @@
+| {% extends "templates/basic.twig" %}
+| {% block title %} Mojodice | {{article.getTitle(lang)}} {% endblock %}
+| {% block content %}
+
+header
+  h1 {{article.getTitle(lang)}}
+  dl.dates
+    dt.mdi.mdi-24px.mdi-calendar
+    dd {{article.created_at}}
+    dt.mdi.mdi-24px.mdi-calendar-check
+    dd {{article.updated_at}}
+    
+.article-background
+  img.heroimage
+  
+
+| {% endblock %}

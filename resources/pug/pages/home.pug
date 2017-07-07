@@ -1,12 +1,16 @@
 | {% extends "templates/no-overflow.twig" %}
+| {% block title %} Home {% endblock %}
 | {% block content %}
 
 nav
-  button.nav-item.hamburger.hamburger--slider(type="button")
+  button#home.nav-item.hamburger.hamburger--slider(type="button")
     span.hamburger-box
       span.hamburger-inner
+  | {% if lang == 'nl'%} 
+  span.text Hier ga je niets vinden...
+  | {% else %}
   span.text Nothing here...
-
+  | {% endif %}
 
 
 #particles-js
@@ -18,65 +22,82 @@ nav
     .img-container
     .menu-container
       .row
-        a.menu-item(data-link-type="portfolio" href="{{ path_for('portfolio')}}")
-          b.mdi.mdi-rotate-315 P
-        .menu-item(data-link-type="articles")
-          b.mdi.mdi-rotate-315 Ar
+        a.menu-item(data-link-type="portfolio" href="{{ path_for('portfolio', {'lang': lang})}}")
+          b.rotate P
+        .menu-item(data-link-type="blog")
+          b.rotate B
         .menu-item(data-link-type="contact")
-          b.mdi.mdi-rotate-315 Co
+          b.rotate C
       .row
         .menu-item(data-link-type="services")
-          b.mdi.mdi-rotate-315 Se
+          | {% if lang == 'nl'%} 
+          b.rotate D
+          | {% else %}
+          b.rotate S
+          | {% endif %}
+          
         .menu-item#close-btn
           i.mdi.mdi-36px.mdi-rotate-315.mdi-close
         .menu-item-container
           .row
-            a.menu-item#github(data-link-type="github" href="https://github.com/SvenWesterlaken")
+            a.menu-item#github(data-link-type="github", href="https://github.com/SvenWesterlaken")
               .mdi.mdi-rotate-315.mdi-github-face
-            a.menu-item#instagram(data-link-type="instagram" href="https://www.instagram.com/mojodice/")
+            a.menu-item#instagram(data-link-type="instagram", href="https://www.instagram.com/mojodice/")
               .mdi.mdi-rotate-315.mdi-instagram
           .row
-            a.menu-item#facebook(data-link-type="facebook" href="https://www.facebook.com/WestSdesign")
+            a.menu-item#facebook(data-link-type="facebook", href="https://www.facebook.com/WestSdesign")
               .mdi.mdi-rotate-315.mdi-facebook
             a.menu-item(data-link-type="mail" href="")
               .mdi.mdi-rotate-315.mdi-email-outline
 
       .row
         .menu-item(data-link-type="about")
-          b.mdi.mdi-rotate-315 Ab
+          b.rotate A
         .menu-item-container
           .row
-            a.menu-item#youtube(data-link-type="youtube" href="https://www.youtube.com/channel/UC7IVgYrxrqPW4adF0qq2mBg")
+            a.menu-item#youtube(data-link-type="youtube", href="https://www.youtube.com/channel/UC7IVgYrxrqPW4adF0qq2mBg")
               .mdi.mdi-rotate-315.mdi-youtube-play
-            a.menu-item#googleplus(data-link-type="googleplus" href="https://plus.google.com/u/0/110595661223332768219")
+            a.menu-item#googleplus(data-link-type="googleplus", href="https://plus.google.com/u/0/110595661223332768219")
               .mdi.mdi-rotate-315.mdi-16.mdi-google-plus
           .row
-            a.menu-item#linkedin(data-link-type="linkedin" href="https://www.linkedin.com/in/sven-w-85b426111")
+            a.menu-item#linkedin(data-link-type="linkedin", href="https://www.linkedin.com/in/sven-w-85b426111")
               .mdi.mdi-rotate-315.mdi-linkedin
-            a.menu-item#behance(data-link-type="behance" href="https://www.behance.net/WestSdesign")
+            a.menu-item#behance(data-link-type="behance", href="https://www.behance.net/WestSdesign")
               .mdi.mdi-rotate-315.mdi-behance
-        .menu-item(data-link-type="language")
-          b.mdi.mdi-rotate-315 NL
+        | {% if lang == 'nl'%} 
+        a.menu-item(data-link-type="language", href="{{path_for('home', {'lang': 'en'})}}")
+          b.rotate EN
+        | {% else %}
+        a.menu-item(data-link-type="language", href="{{path_for('home', {'lang': 'nl'})}}")
+          b.rotate NL
+        | {% endif %}
+          
 
   .title-container
     h1 Mojodice
     h2 A heart coded creative mind
 
 .message-container
-  span(data-link-text="portfolio") portfolio
-  span(data-link-text="articles") articles
-  span(data-link-text="contact") contact
+  | {% if lang == 'nl'%}
+  span(data-link-text="services") diensten
+  span(data-link-text="language") taal
+  | {% else %}
   span(data-link-text="services") services
+  span(data-link-text="language") language  
+  | {% endif %}
+  
+  span(data-link-text="portfolio") portfolio
+  span(data-link-text="blog") blog
+  span(data-link-text="contact") contact
+  span(data-link-text="about") about
   span(data-link-text="github") github
   span(data-link-text="instagram") instagram
   span(data-link-text="facebook") facebook
   span(data-link-text="mail") mail
-  span(data-link-text="about") about
   span(data-link-text="youtube") youtube
   span(data-link-text="googleplus") google+
   span(data-link-text="linkedin") linkedin
   span(data-link-text="behance") behance
-  span(data-link-text="language") language
 
 footer
   span.copyright MojoDice &copy; {{ "now" | date("Y")}}

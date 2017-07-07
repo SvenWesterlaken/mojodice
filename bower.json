@@ -1,0 +1,36 @@
+{
+  "name": "mojodice",
+  "homepage": "https://github.com/SvenWesterlaken/mojodice",
+  "authors": [
+    "Sven Westerlaken <sven.westerlaken@hotmail.nl>"
+  ],
+  "description": "Personal website",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/assets/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "countUp.js": "countup#^1.8.1",
+    "css-hamburgers": "^0.7.0",
+    "bourbon": "^4.2.7",
+    "csshake": "^1.5.1",
+    "hint.css": "hint-css#^2.4.1",
+    "imagesloaded": "^4.1.1",
+    "jquery-ui": "^1.12.1",
+    "materialize": "^0.98.0",
+    "mdi": "^1.8.36",
+    "neat": "^1.8.0",
+    "mojs": "^0.288.1",
+    "normalize-css": "^5.0.0",
+    "PACE": "pace#^1.0.2",
+    "particles.js": "particles-js#^2.0.0",
+    "shufflejs": "^4.1.0"
+  }
+}

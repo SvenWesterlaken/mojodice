@@ -1,0 +1,12 @@
+{% extends "templates/basic.twig" %}
+{% block title %} Portfolio {% endblock %}
+{% block content %}
+{% if lang == 'nl' %}
+{% set no_items = "Geen overeenkomende items gevonden."%}
+{% set sortfilters = ["abc", "xyz", "recent", "oud"] %}
+{% else %}
+{% set no_items = "No matched items found."%}
+{% set sortfilters = ["abc", "xyz", "newest", "oldest"] %}
+{% endif %}<header class="portfolio">{% include 'partials/nav.twig' with {'current_page': 'portfolio'}%}<button class="filter-button"><div class="filter-box"><span class="filter-inner"></span></div></button><h1>Portfolio</h1><div class="divider"></div><div class="portfolio-filter-container">   <div class="search-wrapper"><input id="search"/><i class="mdi mdi-magnify mdi-24px" id="search-icon"></i></div></div></header><div class="portfolio-container"><div id="portfolio-grid">{% for article in articles %}
+  {% include 'partials/portfolio-item.twig' with {'article': article, 'lang': lang} %}
+{% endfor %}</div></div><div class="filter-wrapper"><button class="filter-button"><div class="filter-close-box"></div></button><div class="filter-header"><h2>Filters</h2></div><div class="filter-container"><section class="sortby"><h3>Sort By</h3><div class="filter-items-container">{% for type in sortfilters %}<button class="sortby-filter filter-btn" id="{{type}}"><span>{{ type }}</span></button>{% endfor %}</div></section><section class="category"><h3>Category</h3><div class="filter-items-container">{% for category in categories %}<button class="category-filter filter-btn" id="{{category.getName(lang)}}"><span>{{category.getName(lang)}}</span></button>{% endfor %}</div></section></div></div><span id="no-items-found">{{no_items}}</span><div id="portfolio-background"></div>{% endblock %}
