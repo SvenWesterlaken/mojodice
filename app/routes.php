@@ -3,6 +3,7 @@
 $app->get('/', ['Site\Controllers\HomeController', 'languageRedirect']);
 $app->get('/portfolio', ['Site\Controllers\PortfolioController', 'languageRedirect']);
 $app->get('/article/{slug}', ['Site\Controllers\ArticleController', 'languageRedirect']);
+$app->get('/contact', ['Site\Controllers\ContactController', 'languageRedirect']);
 
 $app->group('/{lang}', function() {
   $this->get('/', ['Site\Controllers\HomeController', 'index'])->setName('home');
@@ -11,7 +12,7 @@ $app->group('/{lang}', function() {
   $this->get('/blog', ['Site\Controllers\HomeController', 'index'])->setName('blog');
   $this->get('/services', ['Site\Controllers\HomeController', 'index'])->setName('services');
   $this->get('/about', ['Site\Controllers\HomeController', 'index'])->setName('about');
-  $this->get('/contact', ['Site\Controllers\HomeController', 'index'])->setName('contact');
+  $this->get('/contact', ['Site\Controllers\ContactController', 'index'])->setName('contact');
 });
 
 ?>

@@ -1,3 +1,11 @@
+"use strict";
+
+(function ($) {
+
+  $(document).ready(function () {
+    $(".article-text p img").simplebox();
+  });
+})(jQuery);
 'use strict';
 
 (function ($) {
@@ -109,16 +117,17 @@
     });
   }
 
-  function openNavMenu($btn, $btngroup) {
-    var $itemstack = $btngroup,
-        $itemstackReverse = $btngroup.reverse();
+  function openNavMenu($btn, $itemstack, $container, articlepage, contactpage) {
+    var $itemstackReverse = $itemstack.reverse();
 
     $btn.on('click', function () {
       var $navbtn = $(this);
 
       $navbtn.toggleClass('is-active');
+      $container.toggleClass('background');
       disableBtnOnAnimate($navbtn, 1000);
       if (!$navbtn.hasClass('opened')) {
+        $container.addClass('inverse', { duration: 600, easing: "easeInOutQuint" });
         $itemstack.each(function (i) {
           var $this = $(this);
           setTimeout(function () {
@@ -132,8 +141,22 @@
             $this.removeClass("opened");
           }, 100 * i);
         });
+        if ($(window).scrollTop() < 360 && articlepage || contactpage) {
+          $container.removeClass('inverse', { duration: 600, easing: "easeInOutQuint" });
+        }
       }
     });
+
+    if (articlepage) {
+      $(window).on("scroll", function () {
+        var scrollpx = $(this).scrollTop();
+        if (scrollpx > 360 && !$container.hasClass('inverse')) {
+          $container.addClass('inverse', { duration: 600, easing: "easeInOutQuint" });
+        } else if (scrollpx < 360 && $container.hasClass('inverse') && !$container.hasClass('background')) {
+          $container.removeClass('inverse', { duration: 600, easing: "easeInOutQuint" });
+        }
+      });
+    }
   }
 
   function disableBtnOnAnimate($button, delay) {
@@ -169,13 +192,16 @@
 
   $(document).ready(function () {
     var $homebtn = $('#home'),
-        $navMenuBtn = $('.nav-container .nav-item.hamburger');
-    $navButtons = $('.nav-container .nav-item');
-    $text = $('span.text');
+        articlepage = $('.article-header').length,
+        contactpage = $('.contact-container').length,
+        $navMenuBtn = $('.nav-container .nav-item.hamburger'),
+        $navButtons = $('.nav-container .nav-item'),
+        $navContainer = $('.nav-container'),
+        $text = $('span.text');
 
     toggleItemName($navButtons);
     toggleBtn($homebtn, $text);
-    openNavMenu($navMenuBtn, $navButtons);
+    openNavMenu($navMenuBtn, $navButtons, $navContainer, articlepage, contactpage);
   });
 })(jQuery);
 "use strict";
@@ -399,6 +425,11 @@
       return element.getAttribute("data-created-at");
     }
 
+    //Date sort
+    function sortByUpdate(element) {
+      return element.getAttribute("data-updated-at");
+    }
+
     //Title sort
     function sortByTitle(element) {
       return element.getAttribute("data-title").toLowerCase();
@@ -408,10 +439,14 @@
       return { reverse: false, by: sortByTitle };
     } else if (type == "xyz") {
       return { reverse: true, by: sortByTitle };
-    } else if (type == "newest" || type == "recent") {
+    } else if (type == "newest") {
       return { reverse: true, by: sortByDate };
-    } else if (type == "oldest" || type == "oud") {
+    } else if (type == "oldest") {
       return { reverse: false, by: sortByDate };
+    } else if (type == "lastupdate") {
+      return { reverse: true, by: sortByUpdate };
+    } else if (type == "oldupdate") {
+      return { reverse: false, by: sortByUpdate };
     }
   }
 
@@ -443,4 +478,78 @@
       shuffleSetup(Shuffle, $grid, $searchinput);
     }
   });
+})(jQuery);
+'use strict';
+
+(function ($) {
+    'use strict';
+
+    $.fn.simplebox = function (options) {
+        var settings = $.extend({
+            fadeSpeed: 400,
+            darkMode: false
+        }, options);
+
+        // Helper Variables
+        var $body = $("body");
+        var $overlay = $('<div id="slb-overlay"></div>');
+        var $image = $("<img class='slb'>");
+        var fadeSpeed = settings.fadeSpeed;
+        var lbIsOpen = false;
+
+        // Modifying theme based on preference
+        if (settings.darkMode) {
+            $overlay.css('background-color', 'black');
+            $('.slb').addClass('slb--invert');
+            $image.addClass('slb--invert');
+        } else {
+            $overlay.css('background-color', 'white');
+        }
+
+        // Function for hiding the overlay.
+        var hideOverlay = function hideOverlay() {
+            $overlay.fadeOut(fadeSpeed);
+            $image.removeClass('slb--opened');
+            lbIsOpen = false;
+            $body.css("overflow", "auto");
+        };
+
+        // When X is clicked or user clicks on the overlay div
+        // Hide lightbox
+        $overlay.click(hideOverlay);
+
+        // Attaching ESC listener
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27 && lbIsOpen) {
+                hideOverlay();
+            }
+        });
+
+        return this.each(function () {
+            var $this = $(this);
+
+            // When the image is clicked
+            $this.click(function () {
+                lbIsOpen = true;
+                $body.css("overflow", "hidden");
+
+                var $this = $(this);
+                var imageSRC = $this.attr("src");
+                $image.attr("src", imageSRC);
+                $image.css("max-height", "80%");
+                $image.addClass('pop-in');
+                $image.removeClass('pop-out');
+                $image.addClass('center');
+                $image.addClass('slb--opened');
+
+                $overlay.css('pointer-events', 'initial');
+
+                $overlay.append($image);
+                $body.append($overlay);
+
+                // Show all the things!
+                $overlay.fadeIn(fadeSpeed);
+            });
+        });
+    };
 })(jQuery);

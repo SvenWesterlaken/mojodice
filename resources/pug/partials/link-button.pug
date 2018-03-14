@@ -1,0 +1,9 @@
+a.exlink-button(class="{{type}}" href="{{url}}")
+  | {% if type == 'youtube'%}
+  i.mdi.mdi-24px(class="mdi-youtube-play")
+  | {% elseif type == 'github' %}
+  i.mdi.mdi-24px(class="mdi-github-circle")
+  | {% else %}
+  i.mdi.mdi-24px(class="mdi-{{type}}")
+  | {% endif %}
+  span {{type | upper}}

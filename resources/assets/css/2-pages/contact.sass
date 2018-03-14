@@ -1,0 +1,61 @@
+.contact-container
+  height: 100vh
+  width: 100vw
+  padding: 100px 0
+  display: flex
+  justify-content: center
+  align-items: center
+
+.contact-wrapper
+  height: 90%
+  width: 90%
+  padding: 20px
+  background: $offwhite
+  box-shadow: 0 0 3px rgba(0,0,0,0.14), 0 4px 8px rgba(0,0,0,0.28)
+  z-index: 1
+
+  .contact-inner
+    height: 100%
+    width: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+    h1
+      text:
+        align: center
+        transform: uppercase
+      font:
+        size: 2.8em
+        weight: 300
+      letter-spacing: 0.2em
+      color: $offblack
+      margin: 0 -0.2em 0 0
+      padding: 20px
+
+    .progress-bar
+      height: 60px
+      width: 50%
+      border: 2px solid $offblack
+      position: relative
+
+      .inner-progress-count
+        position: absolute
+        display: flex
+        justify-content: center
+        align-items: center
+        top: 0
+        left: 10px
+        bottom: 0
+        color: $offblack
+        font-size: 1.04em
+        font-weight: 500
+
+
+    .stage-container
+      height: 100%
+      width: 100%
+      padding: 20px
+
+      .stage-1

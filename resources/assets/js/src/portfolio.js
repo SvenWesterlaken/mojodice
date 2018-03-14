@@ -97,6 +97,11 @@
       return element.getAttribute("data-created-at");
     }
 
+    //Date sort
+    function sortByUpdate(element) {
+      return element.getAttribute("data-updated-at");
+    }
+
     //Title sort
     function sortByTitle(element) {
       return element.getAttribute("data-title").toLowerCase();
@@ -106,10 +111,14 @@
       return { reverse: false, by: sortByTitle };
     } else if (type == "xyz") {
       return { reverse: true, by: sortByTitle };
-    } else if (type == "newest" || type == "recent") {
+    } else if (type == "newest") {
       return { reverse: true, by: sortByDate };
-    } else if (type == "oldest" || type == "oud") {
+    } else if (type == "oldest") {
       return { reverse: false, by: sortByDate };
+    } else if (type == "lastupdate") {
+      return { reverse: true, by: sortByUpdate};
+    } else if (type == "oldupdate") {
+      return { reverse: false, by: sortByUpdate};
     }
   }
 

@@ -4,14 +4,12 @@
 
 | {% if lang == 'nl' %}
 | {% set no_items = "Geen overeenkomende items gevonden."%}
-| {% set sortfilters = ["abc", "xyz", "recent", "oud"] %}
 | {% else %}
 | {% set no_items = "No matched items found."%}
-| {% set sortfilters = ["abc", "xyz", "newest", "oldest"] %}
 | {% endif %}
 
 header.portfolio
-  | {% include 'partials/nav.twig' with {'current_page': 'portfolio'}%}
+  | {% include 'partials/nav.twig' with {'current_page': 'portfolio', 'inverse': true} %}
     
   button.filter-button
     .filter-box
@@ -43,16 +41,31 @@ header.portfolio
   
   .filter-container
     section.sortby
-      h3 Sort By
+      h3 {% if lang == 'nl' %}Sorteren op{% else %}Sort By{% endif %}
       
       .filter-items-container
-        | {% for type in sortfilters %}
-        button.sortby-filter.filter-btn(id="{{type}}")
-          span {{ type }}
-        | {% endfor %}
+        button.sortby-filter.filter-btn#newest
+          span {% if lang == 'nl' %}Datum {% else %}Date {% endif %}
+          span.mdi.mdi-16px.mdi-chevron-down
+        button.sortby-filter.filter-btn#abc
+          span {% if lang == 'nl' %}Alfabetisch {% else %}Alphabetical {% endif %}
+          span.mdi.mdi-16px.mdi-chevron-down
+        button.sortby-filter.filter-btn#lastupdate
+          span {% if lang == 'nl' %}Bijgewerkt {% else %}Updated {% endif %}
+          span.mdi.mdi-16px.mdi-chevron-down
+        button.sortby-filter.filter-btn#oldest
+          span {% if lang == 'nl' %}Datum {% else %}Date {% endif %}
+          span.mdi.mdi-16px.mdi-chevron-up
+        button.sortby-filter.filter-btn#xyz
+          span {% if lang == 'nl' %}Alfabetisch {% else %}Alphabetical {% endif %}
+          span.mdi.mdi-16px.mdi-chevron-up
+        button.sortby-filter.filter-btn#oldupdate
+          span {% if lang == 'nl' %}Bijgewerkt {% else %}Updated {% endif %}
+          span.mdi.mdi-16px.mdi-chevron-up
+        
       
     section.category
-      h3 Category
+      h3 {% if lang == 'nl' %}Categoriën{% else %}Categories{% endif %}
       
       .filter-items-container
         | {% for category in categories %}

@@ -1,0 +1,4 @@
+{% extends "templates/basic.twig" %}
+{% block title %} Mojodice | Contact {% endblock %}
+{% block content %}
+{% include 'partials/nav.twig' with {'current_page': 'contact', 'inverse': false} %}<div id="particles-js"></div><div class="contact-container"><div class="contact-wrapper"><div class="contact-inner"><h1>Contact-form</h1><div class="stage-container"><div class="stage-1"><p>In which way do you want to contact me?</p><button id="contact-question">I have a question</button><button id="contact-work">I want to work together</button><div class="link-container"><a class="exlink-button facebook icon-button"><i class="mdi mdi-24px mdi-facebook"></i></a><a class="exlink-button linkedin icon-button"><i class="mdi mdi-24px mdi-linkedin"></i></a></div></div></div><div class="progress-bar"><div class="inner-progress-bar"></div><span class="inner-progress-count">0%</span></div></div></div></div>{% endblock %}

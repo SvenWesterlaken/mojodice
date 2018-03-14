@@ -24,9 +24,9 @@ nav
       .row
         a.menu-item(data-link-type="portfolio" href="{{ path_for('portfolio', {'lang': lang})}}")
           b.rotate P
-        .menu-item(data-link-type="blog")
+        a.menu-item(data-link-type="blog")
           b.rotate B
-        .menu-item(data-link-type="contact")
+        a.menu-item(data-link-type="contact" href="{{ path_for('contact', {'lang': lang})}}")
           b.rotate C
       .row
         .menu-item(data-link-type="services")

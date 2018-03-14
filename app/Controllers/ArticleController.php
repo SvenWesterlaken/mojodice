@@ -4,6 +4,7 @@ namespace Site\Controllers;
 
 use Slim\Router;
 use Slim\Views\Twig;
+use Michelf\Markdown;
 use Site\Models\Article;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

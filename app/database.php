@@ -1,13 +1,6 @@
 <?php
 
-use Site\App;
 use Illuminate\Database\Capsule\Manager as Capsule;
-
-require __DIR__ . '/../vendor/autoload.php';
-
-$app = new App;
-
-$container = $app->getContainer();
 
 $capsule = new Capsule;
 
@@ -24,7 +17,5 @@ $capsule->addConnection([
 
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
-
-require __DIR__ . '/../app/routes.php';
 
 ?>

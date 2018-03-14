@@ -1,0 +1,43 @@
+$type-list: (behance: $behance, youtube: $youtube, github: $github, facebook: $facebook, flickr: $flickr, linkedin: $linkedin)
+
+.article-links-container
+  padding: 10px
+  display: flex
+
+.exlink-button
+  text-decoration: none
+  outline: none
+  color: $offblack
+  border: 2px solid $offblack
+  display: flex
+  justify-content: center
+  align-items: center
+  margin: 0 2px
+  padding: 8px 16px
+  transition: all 0.3s ease-in-out
+  font-size: 1.04em
+  font-weight: 400
+  text-transform: uppercase
+  background: transparent
+  overflow: hidden
+
+  &.icon-button
+    height: 45px
+    width: 45px
+    padding: 0
+
+  span
+    padding-left: 10px
+
+  &:hover, &:active
+    background: $offblack
+    color: $offwhite
+
+@each $type,$color in $type-list
+  .exlink-button.#{$type}
+    border-color: #{$color}
+    color: #{$color}
+
+    &:hover, &:active
+      background: #{$color}
+      color: $offwhite

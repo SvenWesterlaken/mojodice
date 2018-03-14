@@ -1,0 +1,99 @@
+.article-text
+  font-size: 16px
+  line-height: 1.4
+
+  p
+    &::selection
+      background: $offblack
+      color: $offwhite
+
+    &::-moz-selection
+      background: $offblack
+      color: $offwhite
+
+    img
+      margin: 0 5%
+      max-width: 90%
+      cursor: pointer
+
+  h2, h3, h4, h5, h6
+    color: $offblack
+    display: block
+    font-weight: 400
+    line-height: 1.4
+    margin-bottom: 0
+
+    &::selection
+      background: $offblack
+      color: $offwhite
+
+    &::-moz-selection
+      background: $offblack
+      color: $offwhite
+
+  h2
+    font-size: 1.8em
+
+  h3
+    font-size: 1.6em
+
+  h4
+    font-size: 1.5em
+
+
+  a
+    color: $offblack
+    font-weight: 500
+    display: inline-block
+    position: relative
+    text-decoration: none
+
+    &::after
+      content: ""
+      position: absolute
+      bottom: 0px
+      left: 0
+      width: 100%
+      height: 2px
+      background: $offblack
+      visibility: hidden
+      transition: all 0.4s cubic-bezier(.23,1,.32,1)
+      transform: scaleX(0)
+
+    &:hover
+      &::after
+        visibility: visible
+        transform: scaleX(1)
+
+    &::selection
+      background: $offblack
+      color: $offwhite
+
+    &::-moz-selection
+      background: $offblack
+      color: $offwhite
+
+  code
+    background: $codewhite
+    font-weight: 300
+    font-family: 'Fira Code', sans-serif
+    font-size: 0.85em
+    padding: 0.2em 0
+
+    &::selection
+      background: $offblack
+      color: $offwhite
+
+    &::-moz-selection
+      background: $offblack
+      color: $offwhite
+
+  pre
+    overflow-x: auto
+    overflow-y: hidden
+    padding: 16px
+    background: $codewhite
+
+    code
+      background: none
+      padding: 0

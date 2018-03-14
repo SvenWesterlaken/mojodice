@@ -1,0 +1,123 @@
+.article-page-content-container
+  padding-top: 400px
+  min-height: 100vh
+
+.article-background
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  height: 100%
+  width: 100%
+  z-index: -1
+  background: $offwhite
+
+  .heroimage
+    position: fixed
+    top: 0
+    left: 0
+    height: 400px
+    width: 100%
+    overflow: hidden
+    background-size: cover
+    background-position: center
+    filter: grayscale(0.6)
+
+    &::after
+      content: ""
+      @include linear-gradient(to bottom, $scrimgradient-1 0%, $scrimgradient-2 35%, $scrimgradient-3 100%)
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      height: 100%
+      width: 100%
+      z-index: 1
+
+header.article-header
+  position: fixed
+  width: 100%
+  top: 0
+  left: 0
+  height: 400px
+  text-align: center
+  z-index: 0
+  display: flex
+  justify-content: center
+  align-items: center
+
+  h1
+    font-size: 3em
+    font-weight: 300
+    text-transform: uppercase
+    text-shadow: 0 1px 8px rgba(0,0,0,0.24)
+
+.article-container
+  position: relative
+  width: 100%
+  background: $offwhite
+  z-index: 1
+  min-height: calc(100vh - 400px)
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3)
+
+  article.article-content
+    width: 100%
+    max-width: 1000px
+    margin: 0 auto
+    padding: 10px 50px 50px
+    color: $offblack
+
+    .divider#postdate, .divider#categories
+      height: 2px
+      width: 100%
+      margin: 0 auto
+      background: $dividerwhite
+
+    dl.dates
+      display: flex
+      justify-content: space-between
+      align-items: center
+      width: 100%
+      padding: 10px
+      margin: 0
+      color: $offblacksecondary
+
+      .postedat, .updatedat
+        padding: 0 5px
+        display: flex
+        align-items: baseline
+
+      dt
+        margin: 5px
+        font-weight: 500
+
+      dd
+        margin: 0
+
+      span.date-divider
+        margin: 0 20px
+
+    .article-text
+      display: block
+      padding: 0 15px
+
+
+@media (max-width: 600px)
+  .article-container article.article-content
+    padding: 10px 15px 20px
+
+    .article-text
+      padding: 0
+
+    dl.dates
+      padding: 10px 0
+      flex-direction: column
+      align-items: flex-start
+
+      .postedat, .updatedat
+        padding: 0
+
+        dt
+          margin-left: 0

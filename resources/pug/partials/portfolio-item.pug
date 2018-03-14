@@ -1,6 +1,7 @@
-.item-thumbnail(data-title='{{article.getTitle(lang)}}', data-created-at="{{article.created_at | date('Y-m-j')}}", data-categories='{{article.getCategories(lang)}}')
+.item-thumbnail(data-title='{{article.getTitle(lang)}}', data-created-at="{{article.created_at | date('Y-m-j')}}", data-updated-at="{{article.updated_at | date('Y-m-j')}}", data-categories='{{article.getCategories(lang)}}')
   figcaption
     a.article-link(href="{{ path_for('article', {'lang': lang, 'slug': article.slug})}}") {{article.getTitle(lang)}}
-  img(src="{{ article.thumbnail.getThumbnailURL() }}", alt="{{article.getTitle(lang)}}") 
+  span.date - {{article.created_at | localizeddate('medium', 'none', lang, null, 'd MMM Y') }} -
+  img(src="{{ article.getThumbnailImage() }}", alt="{{article.getTitle(lang)}}") 
   
   

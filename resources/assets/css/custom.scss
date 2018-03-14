@@ -1,9 +1,15 @@
+@import "1-base/fonts";
 @import "1-base/colorvars";
 @import "1-base/base";
+@import "1-base/articletext";
+@import "1-base/gradient";
 
 @import "2-pages/home";
 @import "2-pages/portfolio";
+@import "2-pages/article";
+@import "2-pages/contact";
 
 @import "3-partials/nav";
 @import "3-partials/particles";
 @import "3-partials/portfolio-item";
+@import "3-partials/link-button";

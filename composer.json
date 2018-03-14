@@ -5,7 +5,9 @@
         "php-di/slim-bridge": "^1.0",
         "illuminate/database": "^5.4",
         "zguillez/slim-mobile-detect": "^1.0",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "aptoma/twig-markdown": "^2.0",
+        "michelf/php-markdown": "^1.7"
     },
 
     "autoload": {

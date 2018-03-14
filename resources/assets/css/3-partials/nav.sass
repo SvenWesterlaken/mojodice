@@ -1,15 +1,10 @@
 nav
-  position: absolute
+  position: fixed
   top: 20px
   left: 20px
   z-index: 2
   background: none
   width: auto
-
-  ul
-    padding: 0
-    margin: 0
-    text-align: center
 
   span.text
     line-height: 22px
@@ -105,9 +100,29 @@ nav
           background-color: $offblack
 
 .nav-container
-  height: 124px
-  width: 310px
+  height: 62px
+  width: 620px
   overflow: hidden
+
+  &::after
+    content: ""
+    height: 102px
+    width: 100vw
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 1
+    transform: scaleX(0)
+    transform-origin: left center
+    transition: all 1s cubic-bezier(.23,1,.32,1)
+    background: $offwhite
+    box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 2px 3px rgba(0,0,0,0.18)
+
+  &.background::after
+    transform: scaleX(1)
+
+  &.all
+    width: 682px
 
   .nav-item
     display: block
@@ -127,6 +142,60 @@ nav
     float: left
     background: none
     transition: opacity 150ms ease-in-out, background-color 300ms ease-in-out, color 300ms ease-in-out
+
+    &::after, &::before
+      content: ""
+      position: absolute
+      height: 60px
+      width: 60px
+      top: 0
+      left: 0
+      visibility: hidden
+      transition: all 0.4s cubic-bezier(.23,1,.32,1)
+
+    &::after
+      border:
+        bottom: 2px solid $offwhite
+        top: 2px solid $offwhite
+      transform: scaleX(0)
+      transition-delay: 0.1s
+
+    &::before
+      border:
+        left: 2px solid $offwhite
+        right: 2px solid $offwhite
+      transform: scaleY(0)
+
+
+    &.opened, &:hover
+      &::after
+        visibility: visible
+        transform: scaleX(1)
+
+      &::before
+        visibility: visible
+        transform: scaleY(1)
+
+    &.opened.page-item, &.opened
+      opacity: 1
+      visibility: visible
+
+      &:hover
+        background: $offwhite
+
+        span
+          color: $offblack
+
+        .hamburger-box
+          .hamburger-inner
+            background-color: $offblack
+
+            &::after, &::before
+              background-color: $offblack
+
+      &::after, &::before
+        transition: all 200ms ease-in-out
+
 
     &.page-name-container
       width: 184px
@@ -157,16 +226,19 @@ nav
           opacity: 0
           visibility: hidden
           transition: all 0.1s ease-in-out
+          color: $offwhite
 
           &.selected
             opacity: 1
             visibility: visible
             transition: all 0.3s ease-in-out
 
+      &.opened
+        opacity: 1
+        visibility: visible
 
-
-      &.inverse.opened:hover
-        background: none
+        &:hover
+          background: none
 
         span
           color: $offblack
@@ -203,71 +275,68 @@ nav
         outline: none
         text-decoration: none
 
-    &::after, &::before
-      content: ""
-      position: absolute
-      height: 60px
-      width: 60px
-      top: 0
-      left: 0
-      visibility: hidden
-      transition: all 0.4s cubic-bezier(.23,1,.32,1)
+  &.inverse .nav-item
+    span
+      color: $offblack
 
     &::after
       border:
-        bottom: 2px solid $offwhite
-        top: 2px solid $offwhite
-      transform: scaleX(0)
-      transition-delay: 0.1s
+        bottom: 2px solid $offblack
+        top: 2px solid $offblack
 
     &::before
       border:
-        left: 2px solid $offwhite
-        right: 2px solid $offwhite
-      transform: scaleY(0)
+        left: 2px solid $offblack
+        right: 2px solid $offblack
 
+    .hamburger-box
+      .hamburger-inner
+        background-color: $offblack
 
-    &.opened, &:hover
-      &::after
-        visibility: visible
-        transform: scaleX(1)
-
-      &::before
-        visibility: visible
-        transform: scaleY(1)
+        &::after, &::before
+          background-color: $offblack
 
     &.opened
-      &::after, &::before
-        transition: all 200ms ease-in-out
+      &:hover
+        background: $offblack
 
+        span
+          color: $offwhite
 
-    &.inverse
-      span
-        color: $offblack
+        .hamburger-box
+          .hamburger-inner
+            background-color: $offwhite
 
-      &::after
-        border:
-          bottom: 2px solid $offblack
-          top: 2px solid $offblack
-
-      &::before
-        border:
-          left: 2px solid $offblack
-          right: 2px solid $offblack
-
-      &.opened
-        opacity: 1
-        visibility: visible
-
-        &:hover
-          background: $offblack
-
-          span
-            color: $offwhite
-
-          .hamburger-box
-            .hamburger-inner
+            &::after, &::before
               background-color: $offwhite
 
-              &::after, &::before
-                background-color: $offwhite
+      &.page-name-container
+        background: none
+
+        span
+          color: $offblack
+
+@media (max-width: 722px)
+  .nav-container
+    width: 620px
+
+    &.all .nav-item.page-name-container
+      width: 122px
+
+      &::before, &::after
+        width: 122px
+
+@media (max-width: 660px)
+  .nav-container, .nav-container.all
+    height: 124px
+    width: 310px
+    overflow: hidden
+
+    &::after
+      height: 164px
+
+    &.all .nav-item.page-name-container
+      width: 122px
+
+      &::before, &::after
+        width: 122px

@@ -1,0 +1,32 @@
+| {% extends "templates/basic.twig" %}
+| {% block title %} Mojodice | Contact {% endblock %}
+| {% block content %}
+
+| {% include 'partials/nav.twig' with {'current_page': 'contact', 'inverse': false} %}
+
+#particles-js
+
+.contact-container
+  .contact-wrapper
+    .contact-inner
+      h1 Contact-form
+      
+      .stage-container
+      
+        .stage-1
+          p In which way do you want to contact me?
+          
+          button#contact-question I have a question
+          button#contact-work I want to work together
+          
+          .link-container
+            a.exlink-button.facebook.icon-button
+              i.mdi.mdi-24px.mdi-facebook
+            a.exlink-button.linkedin.icon-button
+              i.mdi.mdi-24px.mdi-linkedin
+        
+      .progress-bar
+        .inner-progress-bar
+        span.inner-progress-count 0%
+
+| {% endblock %}

@@ -7,16 +7,17 @@
     });
   }
 
-  function openNavMenu($btn, $btngroup) {
-    var $itemstack = $btngroup,
-        $itemstackReverse = $btngroup.reverse();
+  function openNavMenu($btn, $itemstack, $container, articlepage, contactpage) {
+    var $itemstackReverse = $itemstack.reverse();
 
     $btn.on('click', function() {
       var $navbtn = $(this);
 
       $navbtn.toggleClass('is-active');
-      disableBtnOnAnimate($navbtn, 1000)
+      $container.toggleClass('background');
+      disableBtnOnAnimate($navbtn, 1000);
       if(!$navbtn.hasClass('opened')) {
+        $container.addClass('inverse', { duration: 600, easing: "easeInOutQuint" });
         $itemstack.each(function(i) {
           var $this = $(this);
           setTimeout(function() {
@@ -30,8 +31,22 @@
             $this.removeClass("opened");
           }, 100 * i);
         });
+        if(( ($(window).scrollTop() < 360) && articlepage) || contactpage) {
+          $container.removeClass('inverse', { duration: 600, easing: "easeInOutQuint" });
+        }
       }
     });
+
+    if(articlepage) {
+      $(window).on("scroll", function(){
+        var scrollpx = $(this).scrollTop();
+        if(scrollpx > 360 && !$container.hasClass('inverse')) {
+          $container.addClass('inverse', { duration: 600, easing: "easeInOutQuint" });
+        } else if (scrollpx < 360 && $container.hasClass('inverse') && !$container.hasClass('background')) {
+          $container.removeClass('inverse', { duration: 600, easing: "easeInOutQuint" });
+        }
+      });
+    }
   }
 
   function disableBtnOnAnimate($button, delay){
@@ -69,13 +84,16 @@
 
   $(document).ready(function(){
     var $homebtn = $('#home'),
-        $navMenuBtn = $('.nav-container .nav-item.hamburger');
-        $navButtons = $('.nav-container .nav-item');
+        articlepage = $('.article-header').length,
+        contactpage = $('.contact-container').length,
+        $navMenuBtn = $('.nav-container .nav-item.hamburger'),
+        $navButtons = $('.nav-container .nav-item'),
+        $navContainer = $('.nav-container'),
         $text = $('span.text');
 
     toggleItemName($navButtons);
     toggleBtn($homebtn, $text);
-    openNavMenu($navMenuBtn, $navButtons);
+    openNavMenu($navMenuBtn, $navButtons, $navContainer, articlepage, contactpage);
   });
 
 })(jQuery);

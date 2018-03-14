@@ -14,10 +14,10 @@ var gulp        = require('gulp'),
 
 gulp.task('browser-sync', ['sass', 'js', 'pug'], function(){
   browserSync.use({
-    plugin() {},
+    plugin: function() {},
     hooks: {
-      'client:js': autoClose,
-    },
+      'client:js': '(function (bs) {bs.socket.on("disconnect", function (client) { window.close(); });})(___browserSync___);'
+    }
   });
   browserSync.init({
     proxy: "localhost/mojodice/",

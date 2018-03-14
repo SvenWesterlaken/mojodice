@@ -2,16 +2,30 @@
 | {% block title %} Mojodice | {{article.getTitle(lang)}} {% endblock %}
 | {% block content %}
 
-header
-  h1 {{article.getTitle(lang)}}
-  dl.dates
-    dt.mdi.mdi-24px.mdi-calendar
-    dd {{article.created_at}}
-    dt.mdi.mdi-24px.mdi-calendar-check
-    dd {{article.updated_at}}
-    
-.article-background
-  img.heroimage
-  
+| {% include 'partials/nav.twig' with {'current_page': 'article', 'inverse': false, 'slug': article.slug} %}
 
+header.article-header
+  h1 {{article.getTitle(lang)}}
+
+.article-page-content-container
+  .article-container
+    article.article-content
+      dl.dates
+        .postedat
+          dt {% if lang == 'nl' %}Gepost op:{% else %}Posted at:{% endif %}
+          dd {{article.created_at | localizeddate('medium', 'none', lang, null, 'd MMMM Y') }}
+        .updatedat
+          dt {% if lang == 'nl' %}Bijgewerkt op:{% else %}Updated at:{% endif %}
+          dd {{article.updated_at | localizeddate('medium', 'none', lang, null, 'd MMMM Y') }}
+      .divider#postdate
+      .article-links-container
+        | {% for link in article.links %}
+        | {% include 'partials/link-button.twig' with {'url': link.pivot.url, 'type': link.type} %}
+        | {% endfor %}
+      .article-text
+        | {{ article.getContent(lang) | markdown }}
+  
+  .article-background
+    .heroimage(style="background-image: url({{ article.getBackgroundImage() }});")
+  
 | {% endblock %}

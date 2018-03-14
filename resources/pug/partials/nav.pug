@@ -8,25 +8,31 @@
 | {% set language_redirect = "nl" %}
 | {% endif %}
 
-nav.nav-container
-  button.nav-item.hamburger.hamburger--slider.inverse(type="button")
+nav(class="{% if inverse %}inverse{% endif %} nav-container {% if current_page == 'article' %}all{% endif %}")
+  button.nav-item.hamburger.hamburger--slider(type="button" aria-hidden="true")
     .hamburger-box
       span.hamburger-inner
   | {% for page in pages %}
   | {% if page != "diensten" and page != current_page %}
-  a.nav-item.page-item.inverse(id="{{page}}", href="{{ path_for(page, {'lang': lang})}}")
+  a.nav-item.page-item(id="{{page}}", href="{{ path_for(page, {'lang': lang})}}")
     .page-box
       span.head {{page | first }}
   | {% elseif page == "diensten" %}
-  a.nav-item.page-item.inverse(id="services", href="{{ path_for('services', {'lang': lang})}}")
+  a.nav-item.page-item(id="services", href="{{ path_for('services', {'lang': lang})}}")
     .page-box
       span.head {{page | first }}  
   | {% endif %}
   | {% endfor %}
-  a.nav-item.page-item.inverse(id="language", href="{{ path_for(current_page, {'lang': language_redirect})}}")
+  | {% if current_page == 'article'%}
+  a.nav-item.page-item(id="language", href="{{ path_for('article', {'lang': language_redirect, 'slug': slug}) }}")
     .page-box
       span.head {{language_redirect}}
-  .page-name-container.nav-item.inverse
+  | {% else %}
+  a.nav-item.page-item(id="language", href="{{ path_for(current_page, {'lang': language_redirect}) }}") 
+    .page-box
+      span.head {{language_redirect}}
+  | {% endif %}
+  .page-name-container.nav-item
     .page-name-box
       | {% for page in pages %}
       | {% if page != "diensten" and page != current_page %}
